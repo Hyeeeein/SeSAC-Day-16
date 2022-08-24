@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .parent {
+            border: 5px solid black;
+            width: 900px;
+            height: 200px;
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .parent div {
+            color: white;
+            font-size: 30px;
+            background-color: darkseagreen;
+            text-align: center;
+            /* height: 100px; width: 100px; */
+        }
+
+        .parent div:nth-child(2) {
+            align-self: stretch;
+            justify-self: stretch;
+        }
+
+        /* 콜룸 안에서 자식요소의 넓이 높이를 꽉 채울 때 */
+
+
+        .container {
+            border: 5px solid black;
+            background-color: sandybrown;
+            display: grid;
+            grid-template-columns: auto auto auto;
+            grid-gap: 10px;
+        }
+
+        .container div {
+            color: black;
+            text-align: center;
+            font-size: 30px;
+            background-color: khaki;
+        }
+
+        .container div.item {
+            background-color: olive;
+            /* 
+            grid-column-start: 1;
+            grid-column-end: 3; 
+            =
+            grid-column: 1 / span 2;
+            */
+            grid-column: 1 / span 3;
+            /* 콜룸 라인을 기준으로 시작위치 = 1 2개 만큼 확장 */
+        }
+
+        .container div.item2 {
+            background-color: salmon;
+            grid-row: 2 / span 3;
+        }
+
+
+        .box {
+            border: 5px solid black;
+            background-color: seagreen;
+            display: grid;
+            grid-template-columns: auto auto auto;
+            grid-gap: 10px;
+            height: 300px;
+        }
+
+        .box div {
+            background-color: orange;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .box div.inner1 {
+            grid-column: 1 / span 2;
+        }
+
+        .box div.inner2 {
+            grid-row: 1 / span 2;
+            grid-column-start: 3;
+            /* 컨텐츠가 교차축 기준으로 3번째 줄부터 시작하도록 */
+        }
+
+        .box div.inner5 {
+            grid-row-start: 3;
+            grid-column: 1 / span 3;
+        }
+
+
+        .boxs {
+            border: 5px solid black;
+            background-color: darkkhaki;
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto;
+            grid-gap: 10px;
+            height: 500px;
+        }
+
+        .boxs div {
+            background-color: purple;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .boxs div.boxs8 {
+            /* grid-column-start: 2;
+            grid-row-start: 1;
+            grid-column: 2 / span 4;
+            grid-row: 1 / span 4; */
+            grid-area: 1/2 / 5/6;
+        }
+
+
+        .boxss {
+            border: 5px solid black;
+            background-color: slateblue;
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto;
+            grid-gap: 10px;
+            height: 300px;
+        }
+
+        .boxss div {
+            background-color: lightseagreen;
+            text-align: center;
+        }
+
+        .boxss div.boxss8 {
+            /* grid-area: 2/1 / 4/4; */
+            grid-area: 2/1 / span 2 / span 3;
+            /* 가로시작2/세로시작1 / row 2개 합치고 / column 3개 합치고 */
+        }
+
+
+        .boxsss {
+            border: 5px solid black;
+            width: 400px;
+            height: 400px;
+            display: grid;
+            grid-gap: 0;
+            background-color: indianred;
+        }
+
+        .boxsss>div {
+            margin: 10px;
+            text-align: center;
+            border-radius: 5px;
+            background-color: indigo;
+        }
+
+        .boxsss>div:nth-child(1) {
+            grid-area: 1/1/2/2;
+        }
+
+        .boxsss>div:nth-child(2) {
+            grid-area: 1/2/2/3;
+        }
+
+        .boxsss>div:nth-child(3) {
+            grid-area: 2/1/3/2;
+        }
+
+        .boxsss>div:nth-child(4) {
+            grid-area: 2/2/3/3;
+        }
+
+
+        .boxssss {
+            border: 5px solid black;
+            width: 400px;
+            height: 400px;
+            display: grid;
+            grid-gap: 0;
+            background-color: lightseagreen;
+        }
+
+        .boxssss>div {
+            margin: 10px;
+            background-color: palegreen;
+            border-radius: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .boxssss>div:nth-child(1) {
+            grid-area: 1/1/2/2;
+        }
+
+        .boxssss>div:nth-child(2) {
+            grid-area: 1/2/3/3;
+            z-index: 1;
+            background-color: brown;
+        }
+
+        .boxssss>div:nth-child(3) {
+            grid-area: 2/2/4/4;
+        }
+
+
+        .wrap {
+            width: 500px;
+            height: 500px;
+            border: 5px solid black;
+            background-color: darkorchid;
+        }
+
+        .box1 {
+            display: grid;
+
+        }
+
+        .box1>div {
+            font-size: 30px;
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid black;
+        }
+
+        .box1>div:last-child {
+            border-bottom: none;
+        }
+
+        .it1 {
+            grid-row: 2;
+            background-color: sandybrown;
+        }
+
+        .it2 {
+            grid-row: 4;
+            background-color: olivedrab;
+        }
+
+        .box2 {
+            display: grid;
+            grid-template-columns: 50px 0fr 1fr;
+            grid-gap: 5px;
+        }
+
+        .box2>div {
+            border: 1px solid beige;
+            font-size: 30px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .box2>div:nth-child(1) {
+            order: 6;
+            background-color: red;
+        }
+
+        .box2>div:nth-child(2) {
+            order: 5;
+        }
+
+        .box2>div:nth-child(3) {
+            order: 4;
+        }
+
+        .box2>div:nth-child(4) {
+            order: 3;
+        }
+
+        .box2>div:nth-child(5) {
+            order: 2;
+        }
+
+        .box2>div:nth-child(6) {
+            order: 1;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div>1</div>
+        <div>2</div>
+    </div>
+
+    <div class="container">
+        <div class="item">1</div>
+        <div class="item2">2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+    </div>
+
+    <div class="box">
+        <div class="inner1">1</div>
+        <div class="inner2">2</div>
+        <div>3</div>
+        <div>4</div>
+        <div class="inner5">5</div>
+    </div>
+
+    <div class="boxs">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div class="boxs8">8</div>
+        <div>9</div>
+        <div>10</div>
+        <div>11</div>
+        <div>12</div>
+        <div>13</div>
+        <div>14</div>
+        <div>15</div>
+    </div>
+
+    <div class="boxss">
+        <div class="boxss1">1</div>
+        <div class="boxss2">2</div>
+        <div class="boxss3">3</div>
+        <div class="boxss4">4</div>
+        <div class="boxss5">5</div>
+        <div class="boxss6">6</div>
+        <div class="boxss7">7</div>
+        <div class="boxss8">8</div>
+        <div class="boxss9">9</div>
+        <div class="boxss10">10</div>
+        <div class="boxss11">11</div>
+        <div class="boxss12">12</div>
+        <div class="boxss13">13</div>
+    </div>
+
+    <div class="boxsss">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+
+    <div class="boxssss">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
+
+    <div class="wrap box1">
+        <div>1</div>
+        <div>2</div>
+        <div class="it1">3</div>
+        <div>4</div>
+        <div>5</div>
+        <div class="it2">6</div>
+    </div>
+    <div class="wrap box2">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+    </div>
+</body>
+
+</html>
